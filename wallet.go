@@ -92,5 +92,5 @@ func PrivateKeyToHexString(privateKey *ecdsa.PrivateKey) string {
 // PublicKeyToHexString converts a go-ethereum public key to its hexadecimal string representation.
 func PublicKeyToHexString(publicKey *ecdsa.PublicKey) string {
 	// Encode the bytes to a hexadecimal string
-	return hex.EncodeToString(crypto.PubkeyToAddress(publicKey))
+	return crypto.PubkeyToAddress(*publicKey).String()
 }
