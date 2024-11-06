@@ -70,8 +70,7 @@ func deriveAddress(seed []byte, index uint32) (*Key, error) {
 	}
 
 	// Derive the Ethereum address from the private key
-	publicKey := privateKey.Public().(*ecdsa.PublicKey)
-	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
+	publicKeyECDSA, ok := privateKey.Public().(*ecdsa.PublicKey)
 	if !ok {
 		return nil, fmt.Errorf("error deriving public key")
 	}
@@ -92,8 +91,6 @@ func PrivateKeyToHexString(privateKey *ecdsa.PrivateKey) string {
 
 // PublicKeyToHexString converts a go-ethereum public key to its hexadecimal string representation.
 func PublicKeyToHexString(publicKey *ecdsa.PublicKey) string {
-	// Convert the public key to bytes (uncompressed form) using go-ethereum's crypto package
-	publicKeyBytes := crypto.FromECDSAPub(publicKey)
 	// Encode the bytes to a hexadecimal string
-	return hex.EncodeToString(publicKeyBytes)
+	return hex.EncodeToString(crypto.PubkeyToAddress(publicKey))
 }
