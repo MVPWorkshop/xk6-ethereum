@@ -70,7 +70,7 @@ func deriveAddress(seed []byte, index uint32) (*Key, error) {
 	}
 
 	// Derive the Ethereum address from the private key
-	publicKey := privateKey.Public()
+	publicKey := privateKey.Public().(*ecdsa.PublicKey)
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
 		return nil, fmt.Errorf("error deriving public key")
